@@ -1,0 +1,84 @@
+cff-version: 1.2.0
+message: "If you use this software in research, please cite it as below."
+title: "quant-falsifier"
+abstract: >-
+  Falsification tooling for quantitative research: a hash-chained trial ledger, deflated
+  Sharpe ratios, multiple-testing corrections and leakage audits for backtests.
+type: software
+authors:
+  - name: "quant-falsifier contributors"
+version: 0.1.0
+date-released: 2026-11-16
+license: Apache-2.0
+repository-code: "https://github.com/Zoey-nju/quant-falsifier"
+url: "https://github.com/Zoey-nju/quant-falsifier"
+keywords:
+  - quantitative-finance
+  - backtesting
+  - reproducibility
+  - statistical-validation
+  - multiple-testing
+  - deflated-sharpe-ratio
+  - look-ahead-bias
+references:
+  - type: article
+    title: "The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality"
+    authors:
+      - family-names: Bailey
+        given-names: David H.
+      - family-names: López de Prado
+        given-names: Marcos
+    journal: "Journal of Portfolio Management"
+    volume: 40
+    issue: 5
+    start: 94
+    end: 107
+    year: 2014
+  - type: article
+    title: "A Reality Check for Data Snooping"
+    authors:
+      - family-names: White
+        given-names: Halbert
+    journal: "Econometrica"
+    volume: 68
+    issue: 5
+    start: 1097
+    end: 1126
+    year: 2000
+  - type: article
+    title: "A Test for Superior Predictive Ability"
+    authors:
+      - family-names: Hansen
+        given-names: Peter Reinhard
+    journal: "Journal of Business & Economic Statistics"
+    volume: 23
+    issue: 4
+    start: 365
+    end: 380
+    year: 2005
+  - type: article
+    title: "Stepwise Multiple Testing as Formalized Data Snooping"
+    authors:
+      - family-names: Romano
+        given-names: Joseph P.
+      - family-names: Wolf
+        given-names: Michael
+    journal: "Econometrica"
+    volume: 73
+    issue: 4
+    start: 1237
+    end: 1282
+    year: 2005
+  - type: article
+    title: "The Stationary Bootstrap"
+    authors:
+      - family-names: Politis
+        given-names: Dimitris N.
+      - family-names: Romano
+        given-names: Joseph P.
+    journal: "Journal of the American Statistical Association"
+    volume: 89
+    issue: 428
+    start: 1303
+    end: 1313
+    year: 1994

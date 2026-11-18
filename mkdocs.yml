@@ -1,0 +1,53 @@
+site_name: quant-falsifier
+site_description: Falsification tooling for quantitative research
+site_url: https://Zoey-nju.github.io/quant-falsifier/
+repo_url: https://github.com/Zoey-nju/quant-falsifier
+repo_name: Zoey-nju/quant-falsifier
+edit_uri: edit/main/docs/
+copyright: Apache-2.0 licensed
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Concepts: concepts.md
+  - API reference: api.md
+  - Limitations: limitations.md
+  - Changelog: https://github.com/Zoey-nju/quant-falsifier/blob/main/CHANGELOG.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
+
+strict: true

@@ -1,0 +1,62 @@
+name: Feature request
+description: Propose a new check, module or improvement
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Scope is kept small on purpose. The strongest proposals describe a concrete failure
+        mode, ideally with a synthetic example where the existing checks stay silent.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Failure mode
+      description: What goes wrong today that this feature would catch or fix?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+      description: Function signature, inputs, outputs and the statistic or rule involved.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Papers, implementations or discussions that define the method correctly.
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing checks, external libraries, or reasons this belongs here rather than elsewhere.
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Which module does this belong to?
+      options:
+        - metrics (Sharpe ratio corrections)
+        - multiple_testing (bootstrap, reality check, SPA, stepdown)
+        - leakage (splits, point-in-time, overlap, delay, permutation)
+        - ledger (hash chain, trial records)
+        - report (Markdown / HTML output)
+        - synthetic (data generators)
+        - cli / packaging / docs
+        - not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Project constraints
+      options:
+        - label: This can be implemented with NumPy as the only runtime dependency.
+          required: true
+        - label: I understand that every new check must document what it cannot detect.
+          required: true

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage question
+    url: https://github.com/Zoey-nju/quant-falsifier/discussions
+    about: Ask about usage, units or interpretation in Discussions.
+  - name: Security report
+    url: https://github.com/Zoey-nju/quant-falsifier/security/policy
+    about: Please report vulnerabilities privately; do not open a public issue.
+  - name: Documentation
+    url: https://Zoey-nju.github.io/quant-falsifier/
+    about: Concepts, API reference and limitations.

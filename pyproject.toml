@@ -1,0 +1,115 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "quant-falsifier"
+version = "0.1.0"
+description = "Falsification tooling for quantitative research: trial ledgers, deflated Sharpe ratios, multiple-testing corrections and leakage audits."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "quant-falsifier contributors" }]
+keywords = [
+    "quantitative-finance",
+    "backtesting",
+    "reproducibility",
+    "statistical-validation",
+    "multiple-testing",
+    "look-ahead-bias",
+    "deflated-sharpe-ratio",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pre-commit>=3.7",
+    "build>=1.2",
+]
+docs = [
+    "mkdocs-material>=9.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/Zoey-nju/quant-falsifier"
+Documentation = "https://github.com/Zoey-nju/quant-falsifier#readme"
+Issues = "https://github.com/Zoey-nju/quant-falsifier/issues"
+Changelog = "https://github.com/Zoey-nju/quant-falsifier/blob/main/CHANGELOG.md"
+
+[project.scripts]
+quant-falsifier = "quant_falsifier.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quant_falsifier"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "docs", "examples", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["quant_falsifier"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "D"]
+ignore = [
+    "D203", # conflicts with D211
+    "D213", # conflicts with D212
+    "D401", # imperative-mood requirement is too strict
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"examples/*" = ["D", "T201"]
+"docs/*" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src"]
+mypy_path = "src"
+strict = true
+warn_unreachable = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["numpy.*"]
+ignore_missing_imports = true
