@@ -44,6 +44,7 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 
 import numpy as np
+import numpy.typing as npt
 
 from ._stats import default_block_length
 from ._validation import FloatArray, IntArray, as_1d, as_2d, require_positive
@@ -202,9 +203,9 @@ def _draw_stationary_paths(rng: np.random.Generator, n: int, b: int, block: floa
     positions = np.arange(n, dtype=np.int64)
     owner = np.maximum.accumulate(np.where(restart, positions[None, :], -1), axis=1)
     starts = rng.integers(0, n, size=(b, n), dtype=np.int64)
-    block_start = np.take_along_axis(starts, owner, axis=1)
+    block_start = np.asarray(np.take_along_axis(starts, owner, axis=1), dtype=np.int64)
     offset = positions[None, :] - owner
-    return ((block_start + offset) % n).astype(np.int64)
+    return np.asarray((block_start + offset) % n, dtype=np.int64)
 
 
 def _bootstrap_chunks(
@@ -227,9 +228,9 @@ def _bootstrap_chunks(
 
 
 def reality_check(
-    returns: object,
+    returns: npt.ArrayLike,
     *,
-    benchmark: object | None = None,
+    benchmark: npt.ArrayLike | None = None,
     n_boot: int = 2000,
     mean_block: float | None = None,
     seed: int | None = None,
@@ -280,9 +281,9 @@ def reality_check(
 
 
 def spa_test(
-    returns: object,
+    returns: npt.ArrayLike,
     *,
-    benchmark: object | None = None,
+    benchmark: npt.ArrayLike | None = None,
     n_boot: int = 2000,
     mean_block: float | None = None,
     seed: int | None = None,
@@ -349,9 +350,9 @@ def spa_test(
 
 
 def romano_wolf(
-    returns: object,
+    returns: npt.ArrayLike,
     *,
-    benchmark: object | None = None,
+    benchmark: npt.ArrayLike | None = None,
     n_boot: int = 2000,
     mean_block: float | None = None,
     seed: int | None = None,
@@ -422,7 +423,9 @@ def romano_wolf(
     )
 
 
-def _prepare(returns: object, benchmark: object | None) -> tuple[FloatArray, int, int]:
+def _prepare(
+    returns: npt.ArrayLike, benchmark: npt.ArrayLike | None
+) -> tuple[FloatArray, int, int]:
     """Validate inputs and return ``(differentials, n_obs, n_trials)``."""
     matrix = as_2d(returns, "returns")
     n_obs, n_trials = matrix.shape

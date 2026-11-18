@@ -418,9 +418,9 @@ def fingerprint_data(values: object) -> str:
     digest = hashlib.sha256()
     digest.update(str(array.dtype).encode("utf-8"))
     digest.update(str(array.shape).encode("utf-8"))
-    # ``view(np.uint8)`` exposes the existing buffer instead of copying it the
-    # way ``tobytes()`` would, which keeps memory flat for large datasets.
-    digest.update(array.reshape(-1).view(np.uint8))
+    # ``ndarray.data`` exposes the existing buffer as a memoryview instead of
+    # copying it the way ``tobytes()`` would, which keeps memory flat.
+    digest.update(array.data)
     return f"sha256:{digest.hexdigest()}"
 
 

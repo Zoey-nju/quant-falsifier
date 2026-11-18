@@ -45,6 +45,7 @@ from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass
 
 import numpy as np
+import numpy.typing as npt
 
 from ._stats import default_block_length
 from ._validation import FloatArray, IntArray, as_1d, require_min_length
@@ -263,7 +264,7 @@ class PurgedKFold:
 
     def split(
         self,
-        X: object,
+        X: npt.ArrayLike,
         y: object | None = None,
         groups: object | None = None,
     ) -> Iterator[tuple[IntArray, IntArray]]:
@@ -315,9 +316,9 @@ class PurgedKFold:
 
 def audit_splits(
     splits: Iterable[tuple[Sequence[int] | IntArray, Sequence[int] | IntArray]],
-    times: object,
+    times: npt.ArrayLike,
     *,
-    label_end_times: object | None = None,
+    label_end_times: npt.ArrayLike | None = None,
     embargo: int = 0,
 ) -> SplitAudit:
     """Audit an existing collection of train/test index sets for leakage.
@@ -388,8 +389,8 @@ def audit_splits(
 
 
 def check_point_in_time(
-    feature_times: object,
-    decision_times: object,
+    feature_times: npt.ArrayLike,
+    decision_times: npt.ArrayLike,
     *,
     publication_lag: float = 0.0,
     tolerance: float = 0.0,
@@ -435,7 +436,9 @@ def check_point_in_time(
     )
 
 
-def label_overlap(sample_times: object, label_end_times: object | None = None) -> LabelOverlap:
+def label_overlap(
+    sample_times: npt.ArrayLike, label_end_times: npt.ArrayLike | None = None
+) -> LabelOverlap:
     """Quantify dependence caused by overlapping label windows.
 
     Args:
@@ -472,8 +475,8 @@ def label_overlap(sample_times: object, label_end_times: object | None = None) -
 
 
 def signal_delay_curve(
-    signal: object,
-    forward_returns: object,
+    signal: npt.ArrayLike,
+    forward_returns: npt.ArrayLike,
     *,
     delays: Sequence[int] = (0, 1, 2, 3, 5),
     periods_per_year: int = 252,
@@ -532,8 +535,8 @@ def signal_delay_curve(
 
 
 def permutation_pvalue(
-    signal: object,
-    forward_returns: object,
+    signal: npt.ArrayLike,
+    forward_returns: npt.ArrayLike,
     *,
     metric: str = "sharpe",
     n_perm: int = 2000,
@@ -667,7 +670,7 @@ def _count_embargo_violations(train: IntArray, test: IntArray, n_obs: int, embar
     return int(np.count_nonzero(embargo_mask[train]))
 
 
-def _resolve_label_ends(times: FloatArray, label_end_times: object | None) -> FloatArray:
+def _resolve_label_ends(times: FloatArray, label_end_times: npt.ArrayLike | None) -> FloatArray:
     """Return label end timestamps, validating user-supplied values."""
     if label_end_times is None:
         if times.size < 2:

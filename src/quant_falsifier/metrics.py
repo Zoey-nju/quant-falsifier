@@ -30,6 +30,7 @@ import math
 from dataclasses import asdict, dataclass
 
 import numpy as np
+import numpy.typing as npt
 
 from ._stats import EULER_GAMMA, norm_cdf, norm_ppf
 from ._stats import kurtosis as _kurtosis
@@ -87,7 +88,7 @@ class DeflatedSharpeResult:
 
 
 def sharpe_ratio(
-    returns: object,
+    returns: npt.ArrayLike,
     *,
     periods_per_year: int = 252,
     annualize: bool = True,
@@ -210,7 +211,7 @@ def deflated_sharpe_ratio_from_stats(
     *,
     skew: float,
     kurtosis: float,
-    trial_sharpes: object,
+    trial_sharpes: npt.ArrayLike,
     periods_per_year: int = 252,
 ) -> DeflatedSharpeResult:
     """Deflated Sharpe ratio from summary statistics rather than a return series.
@@ -263,8 +264,8 @@ def deflated_sharpe_ratio_from_stats(
 
 
 def deflated_sharpe_ratio(
-    returns: object,
-    trial_sharpes: object,
+    returns: npt.ArrayLike,
+    trial_sharpes: npt.ArrayLike,
     *,
     periods_per_year: int = 252,
     risk_free: float = 0.0,
@@ -400,7 +401,7 @@ def _trial_dispersion(trials: FloatArray) -> float:
     return std
 
 
-def per_period_sharpes(trial_returns: object) -> FloatArray:
+def per_period_sharpes(trial_returns: npt.ArrayLike) -> FloatArray:
     """Per-period Sharpe ratios for every column of a trial matrix.
 
     This is the input :func:`deflated_sharpe_ratio` expects: the correction is
